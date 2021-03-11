@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--On envelope notre LinearLayout de structure de vues par un <layout car on passe aussi des <data-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    permet d'indiquer le nom et le type des variables que l'on souhaite afficher directement dasn nos vue grace au dataBinding-->
+    <data>
+        <variable name="user" type="com.example.ex10_listfromdb.model.User"/>
+    </data>
+<!--    on peut ecrire des conditions et donc donner selon la valeur de age telle ou telle couleur de background-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@{user.id >= 18 ? @color/design_default_color_error : @color/white}"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@{user.login}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:text="@{String.valueOf(user.id)}"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</layout>

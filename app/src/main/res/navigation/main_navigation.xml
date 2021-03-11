@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Permet de definir le shema de navigation de notre application
+est heberge et ouvert par main activity (voir activity_main.xml)
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/usersFragment">
+
+    <!--    Permet de declarer un fragment comme membre du shema de navigation-->
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.example.ex10_listfromdb.fragment.UsersFragment"
+        android:label="UsersFragment">
+        <!--        Permet de declarer une action de navigation realisable a partir de UsersFragment
+        En l'occurence, d'ouvrire UserDetailsFragment-->
+        <action
+            android:id="@+id/action_usersFragment_to_userDetailsFragment"
+            app:destination="@id/userDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userDetailsFragment"
+        android:name="com.example.ex10_listfromdb.fragment.UserDetailsFragment"
+        android:label="fragment_user_details"
+        tools:layout="@layout/fragment_user_details">
+        <!--        Permet de declarer que UserdetailsFragment attends un long userId en parametre lorsqu'on l'ouvre
+        Ainsi si une action comme action_usersFragment_to_userDetailsFragment ouvre ce fragment,
+        l'objet action attendra en parametre le userId
+        que l'on pourra recupere dasn le UserDetailsFragment(dasn son Bundle mArgument)-->
+        <argument
+            android:name="userId"
+            app:argType="long" />
+        <!--        popUpTo permet d'indiquer que lors du retour en arriere suite a cette action (click du back button par exemple
+        On souhaite ouvrire le UsersFragment et non le usersDetailsFragment qui est le precedant fragment affiche
+        et aurait etait ramene a l'affichage si ce parametre n'est pas precise)-->
+        <action
+            android:id="@+id/action_userDetailsFragment_to_nameFragment"
+            app:destination="@id/nameFragment"
+            app:popUpTo="@id/usersFragment" />
+        <action
+            android:id="@+id/action_userDetailsFragment_to_ageFragment"
+            app:destination="@id/ageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nameFragment"
+        android:name="com.example.ex10_listfromdb.fragment.NameFragment"
+        android:label="fragment_name"
+        tools:layout="@layout/fragment_name">
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/ageFragment"
+        android:name="com.example.ex10_listfromdb.fragment.AgeFragment"
+        android:label="fragment_age"
+        tools:layout="@layout/fragment_age" />
+</navigation>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.example.ex10_listfromdb.model.User" />
+
+        <import type="com.example.ex10_listfromdb.R" />
+        <import type="androidx.navigation.Navigation" />
+        <variable
+            name="myNavigation"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@{user.id >= 18 ? @color/design_default_color_error : @color/white}"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="@{user.login != null ? true : false}"
+            android:gravity="center_vertical"
+            android:text="@{user.login}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <Button
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="@{user.id > 0 ? true : false}"
+            android:gravity="center_vertical"
+            android:text="@{String.valueOf(user.id)}"
+            android:onClick="@{view -> Navigation.findNavController(view).navigate(R.id.action_userDetailsFragment_to_ageFragment)}"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</layout>
