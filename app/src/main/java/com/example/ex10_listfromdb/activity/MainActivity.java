@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         UserRepository userRepository = Injection.provideUserRepository(this, Injection.provideExecutor());
         findViewById(R.id.AM_add_btn).setOnClickListener(view -> {
             Injection.provideExecutor().execute(() ->
-                    userRepository.createUser(new User("User " + ++counter, 10 + counter)));
+                    userRepository.createUser(new User("User " + ++counter, 100 + counter)));
         });
     }
 
