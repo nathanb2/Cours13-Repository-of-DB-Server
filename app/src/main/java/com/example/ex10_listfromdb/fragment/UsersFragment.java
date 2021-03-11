@@ -59,6 +59,7 @@ public class UsersFragment extends Fragment {
         usersViewModel.getAllUsers().observe(getViewLifecycleOwner(), new Observer<DataResponse<List<User>>>() {
             @Override
             public void onChanged(DataResponse<List<User>> response) {
+                //On affiche un toast avec le statut de la demande de donnees (en vrai devrait afficher un progressBar pour loading, un dialog d'erreur pour ereur etc...)
                 Toast.makeText(getActivity(), response.getRequestStatus().name(), Toast.LENGTH_SHORT).show();
                 if (mUserAdapter == null){
                     mUserAdapter = initAdapter(response.getBody());

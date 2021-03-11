@@ -53,8 +53,12 @@ public class UserRepository {
     }
 
     public MediatorLiveData<DataResponse<List<User>>> getAllUsers() {
+        //dataResponse permetra d'inserer dasn un meme object les users et le staut de la demande de donnees
         DataResponse<List<User>> dataResponse = new DataResponse<>(new ArrayList<>());
+        //usersMediatorLiveData permet de creer un liveData de responseData et ->
         MediatorLiveData<DataResponse<List<User>>> usersMediatorLiveData = new MediatorLiveData();
+        //d'observer le liveData retourne par userDao.getAllUsers() depuis le repository et ainsi de pouvoir inserer les users retourne dans notre objet dataResponse
+        // et de les poster dans notre mediatorLiveData pour que son onchange soit appele dasn le fragment ou il est observe
         usersMediatorLiveData.addSource(userDao.getAllUsers(), new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
@@ -71,6 +75,8 @@ public class UserRepository {
 
     public void fetchUsers(DataResponse<List<User>> dataResponse, MediatorLiveData usersMediatorLiveData) {
         SharedPredferences sharedPredferences = SharedPredferences.getInstance();
+        //on recupere la date de la derniere mise a jour des datas depuis le sharedpreferences
+        // et appelons la request a l'api uniquement si c'etait rafraichit il y a plus d'1 minute
         if (sharedPredferences.getLastGithubUsersFetch() < new Date().getTime() - MINUTE_IN_MILLIS) {
             dataResponse.setRequestStatus(RequestStatus.LOADING);
             usersMediatorLiveData.postValue(dataResponse);
@@ -86,9 +92,11 @@ public class UserRepository {
                     executor.execute(new Runnable() {
                         @Override
                         public void run() {
+                            //on insere les data dasn la database
                             userDao.createUsers(response.body());
                         }
                     });
+                    //on update la date de derniere mise a jour dans le sharedPreferences
                     sharedPredferences.setLastGithubUsersFetch(new Date().getTime());
                 }
 
