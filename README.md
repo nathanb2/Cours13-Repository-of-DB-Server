@@ -1,6 +1,6 @@
 Combine request a l'API de github et base de donnees locale
 
-Base dur Cours12
+Base sur Cours12
 
 Le Repository se charge de la logique de demande ou sauvegarde des donnees:
 - Demande les donnees a la dataBase locale 
